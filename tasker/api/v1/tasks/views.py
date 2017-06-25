@@ -2,6 +2,12 @@ from rest_framework import generics
 from .serializers import TaskSerializer
 from apps.tasks.models.task import Task
 
+
+class TaskView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+
 class CreateView(generics.ListCreateAPIView):
     """This class defines the create behavior of rest api."""
     queryset = Task.objects.all()
@@ -12,16 +18,13 @@ class CreateView(generics.ListCreateAPIView):
         serializer.save()
 
 
-class DetailsView(generics.RetrieveUpdateDestroyAPIView):
+class DetailsView(TaskView):
     """This class handles the http GET, PUT and DELETE requests."""
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
+    pass
 
 
-class ChangeStateView(generics.RetrieveUpdateDestroyAPIView):
-    """This class handles the http GET, PUT and DELETE requests."""
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
+class ChangeStateView(TaskView):
+    """This class handles the http PUT request. Partial update"""
 
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
