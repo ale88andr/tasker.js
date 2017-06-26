@@ -157,7 +157,9 @@ header h1 {
     opacity: 1;
 }
 
-
+.task-item p.datetime {
+    color: lightgray;
+}
 
 /* Task form */
 
@@ -179,5 +181,10 @@ header h1 {
 }
 
 #create-task-form button {
-    margin-left: 10px;
+    margin-left: 10px;   
+}
+
+#create-task-form button:hover {
+    background-color: #f0db4f;
+    color: #000;
 }
