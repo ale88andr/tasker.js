@@ -17,10 +17,11 @@ class TaskView extends EventEmitter {
         const editInput = createElement('input', { type: 'text', className: 'textfield' });
         const editButton = createElement('button', { className: 'edit' }, 'Изменить');
         const deleteButton = createElement('button', { className: 'delete' }, 'Удалить');
+        const createdAtDate = createElement('p', {className: 'datetime'}, todo.created)
         const item = createElement(
             'li', 
             { className: `task-item${todo.state == 2 ? ' completed' : ''}`, 'data-id': todo.id },
-            checkbox, label, editInput, editButton, deleteButton
+            checkbox, label, editInput, editButton, deleteButton, createdAtDate
         );
 
         return this.addEventListeners(item);
@@ -44,7 +45,7 @@ class TaskView extends EventEmitter {
         const inputValue = this.input.value.trim();
 
         if (!inputValue) {
-            return alert('Необходимо ввести название задачи');
+            return alert('Необходимо ввести название задачи!');
         }
 
         this.emit('add', inputValue);

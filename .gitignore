@@ -65,3 +65,14 @@ taskerenv/
 
 # tasker dev database
 tasker/db.sqlite3
+
+# Generated files
+*.log
+*.pot
+*.pyc
+.idea
+_build
+
+# Project Specific Stuff
+local_settings.py
+__pycache__

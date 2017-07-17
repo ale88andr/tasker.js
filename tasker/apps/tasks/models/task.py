@@ -22,5 +22,10 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = 'Задача'
+        verbose_name_plural = 'Задачи'
+        ordering = ['-created_at']
+
     def __str__(self):
         return '<Task> name:{}'.format(self.name)

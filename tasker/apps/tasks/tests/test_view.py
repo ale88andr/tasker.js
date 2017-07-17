@@ -16,6 +16,7 @@ class TaskViewTestCase(TestCase):
             reverse('create'),
             self.task_data,
             format="json")
+        self.task = Task.objects.get()
 
     def test_api_can_create_a_task(self):
         """Test the api has task creation capability."""
@@ -23,29 +24,27 @@ class TaskViewTestCase(TestCase):
 
     def test_api_can_get_a_tasks(self):
         """Test the api can get a given task."""
-        task = Task.objects.get()
         response = self.client.get(
-            reverse('details'),
-            kwargs={'pk': task.id}, format="json")
+            reverse('details', kwargs={'pk': self.task.id}),
+            format="json"
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertContains(response, task)
+        self.assertContains(response, self.task.name)
 
     def test_api_can_update_task(self):
         """Test the api can update a given task."""
-        task = Task.objects.get()
         change_task = {'name': 'Something new'}
         res = self.client.put(
-            reverse('details', kwargs={'pk': task.id}),
+            reverse('details', kwargs={'pk': self.task.id}),
             change_task, format='json'
         )
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     def test_api_can_delete_task(self):
         """Test the api can delete a task."""
-        task = task.objects.get()
         response = self.client.delete(
-            reverse('details', kwargs={'pk': task.id}),
+            reverse('details', kwargs={'pk': self.task.id}),
             format='json',
             follow=True)
 
